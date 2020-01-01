@@ -13,15 +13,24 @@ import com.sapient.poc.model.Employee;
 import com.sapient.poc.utilities.InMemoryCache;
 import com.sapient.poc.utilities.ResourceLoader;
 
+/**
+ * The {@code EmployeeLoaderService} class serves as service to take up task to
+ * load data from CSV file during application task.
+ */
+
 @Service
 public class EmployeeLoaderService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeLoaderService.class);
 
+	/**
+	 * init method to take responsibility to load CSV data during application
+	 * startup
+	 */
 	@PostConstruct
 	public void init() {
 		LOGGER.info("Application started loading employees from csv file....");
-		List<Employee> employeeList = ResourceLoader.loadObjectList(Employee.class, "employee.csv");
+		List<Employee> employeeList = ResourceLoader.loadEmployeeInfoFromFile(Employee.class, "employee.csv");
 		if (employeeList.isEmpty()) {
 			LOGGER.error("Employees Could Not Be Loaded.....");
 			return;
@@ -29,6 +38,12 @@ public class EmployeeLoaderService {
 		loadEmployeesToCache(employeeList);
 	}
 
+	/**
+	 * method to load data to cache after successfully retrieving data from CSV
+	 * 
+	 * @param employees the data to be stored in cache
+	 * 
+	 */
 	public void loadEmployeesToCache(List<Employee> employees) {
 		InMemoryCache.getInMemoryCahceInstance().saveEmployees(employees);
 	}

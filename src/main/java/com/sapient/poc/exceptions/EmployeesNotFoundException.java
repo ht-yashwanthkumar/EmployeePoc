@@ -1,6 +1,10 @@
 package com.sapient.poc.exceptions;
 
-public class EmployeesNotFoundException extends Exception{
+/**
+ * The {@code EmployeesNotFoundException} class serves as custom exception
+ */
+
+public class EmployeesNotFoundException extends Exception {
 
 	/**
 	 * 

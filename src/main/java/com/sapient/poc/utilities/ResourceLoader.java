@@ -12,6 +12,11 @@ import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 
+/**
+ * The {@code ResourceLoader} class serves as utility class to load the data
+ * from file and convert to list of pojo provided.
+ * 
+ */
 public class ResourceLoader {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ResourceLoader.class);
@@ -20,7 +25,15 @@ public class ResourceLoader {
 
 	}
 
-	public static <T> List<T> loadObjectList(Class<T> type, String fileName) {
+	/**
+	 * method to load data and to convert to list of pojo
+	 * 
+	 * @param filename the file to be read
+	 * @param type     generic type to map each record
+	 * @return Collection of pojos
+	 */
+
+	public static <T> List<T> loadEmployeeInfoFromFile(Class<T> type, String fileName) {
 		try {
 			CsvSchema bootstrapSchema = CsvSchema.emptySchema().withHeader();
 			CsvMapper mapper = new CsvMapper();

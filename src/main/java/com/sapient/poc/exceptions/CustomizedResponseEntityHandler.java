@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+/**
+ * The {@code CustomizedResponseEntityHandler} class serves custom exception
+ * handling to all exceptions generated
+ */
 @ControllerAdvice
 public class CustomizedResponseEntityHandler extends ResponseEntityExceptionHandler {
 

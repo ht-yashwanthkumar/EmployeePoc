@@ -12,11 +12,25 @@ import com.sapient.poc.dao.EmployeeDao;
 import com.sapient.poc.exceptions.EmployeesNotFoundException;
 import com.sapient.poc.model.Employee;
 
+/**
+ * The {@code EmployeeService} class serves as service provider.
+ * 
+ * Business service
+ */
+
 @Service
 public class EmployeeService {
 
 	@Autowired
 	EmployeeDao employeeDao;
+
+	/**
+	 * method to increase salary of each employee who belongs to specific location
+	 * 
+	 * @param place      employees salary which should be updated who belongs to
+	 *                   this place
+	 * @param percentage salary percentage which needs to be updated
+	 */
 
 	public void increaseSalary(String place, float percentage) throws EmployeesNotFoundException {
 		Optional<Collection<Employee>> employees = employeeDao.find();
@@ -33,6 +47,11 @@ public class EmployeeService {
 		employeeDao.updateEmployees(updatedEmployeeList);
 	}
 
+	/**
+	 * method to retrieve all employees
+	 * 
+	 */
+
 	public Collection<Employee> retrieveEmployees() throws EmployeesNotFoundException {
 		Optional<Collection<Employee>> optEmployees = employeeDao.find();
 		if (!optEmployees.isPresent()) {
@@ -40,6 +59,13 @@ public class EmployeeService {
 		}
 		return optEmployees.get();
 	}
+
+	/**
+	 * method to retrieve specific employee
+	 * 
+	 * @param empId id to retrieve specific employee
+	 * @return respective employee will be returned
+	 */
 
 	public Employee findEmployeeById(int empId) throws EmployeesNotFoundException {
 

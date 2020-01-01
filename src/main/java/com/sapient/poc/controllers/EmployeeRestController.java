@@ -18,6 +18,10 @@ import com.sapient.poc.services.EmployeeService;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 
+/**
+ * The {@code EmployeeRestController} class serves as rest resource provider of
+ * Employee
+ */
 @RestController
 public class EmployeeRestController {
 
