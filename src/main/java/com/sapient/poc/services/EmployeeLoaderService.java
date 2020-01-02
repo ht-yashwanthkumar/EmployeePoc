@@ -35,6 +35,8 @@ public class EmployeeLoaderService {
 			LOGGER.error("Employees Could Not Be Loaded.....");
 			return;
 		}
+
+		LOGGER.info("Loading employees from csv file is completed....");
 		loadEmployeesToCache(employeeList);
 	}
 
@@ -45,6 +47,7 @@ public class EmployeeLoaderService {
 	 * 
 	 */
 	public void loadEmployeesToCache(List<Employee> employees) {
+		LOGGER.info("Caching the data");
 		InMemoryCache.getInMemoryCahceInstance().saveEmployees(employees);
 	}
 }

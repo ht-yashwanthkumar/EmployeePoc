@@ -19,15 +19,29 @@ import com.sapient.poc.exceptions.EmployeesNotFoundException;
 import com.sapient.poc.model.Employee;
 import com.sapient.poc.services.EmployeeService;
 
+/**
+ * The {@code BusinessServicesMockTest} class serves as MockTest runner to test
+ * Business service layer.
+ * 
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class BusinessServicesMockTest {
 
+	/**
+	 * Injecting {@code EmployeeDao} as Mock Instance
+	 */
 	@Mock
 	EmployeeDao employeeDao;
 
+	/**
+	 * Injecting {@code EmployeeService} to test business related operations.
+	 */
 	@InjectMocks
 	EmployeeService employeeService;
 
+	/**
+	 * unit test method to test for count of all the employees
+	 */
 	@Test
 	public void testForEmployees() throws EmployeesNotFoundException {
 
@@ -35,17 +49,25 @@ public class BusinessServicesMockTest {
 		assertEquals(2, employeeService.retrieveEmployees().size());
 	}
 
+	/**
+	 * unit test method to test for increasing the salary of all the employees who
+	 * comes under specific place
+	 */
 	@Test
 	public void testForIncreasingSalary() throws EmployeesNotFoundException {
 		Optional<Collection<Employee>> optData = Optional.of(getEmployeeMockData());
 		when(employeeDao.find()).thenReturn(optData);
-		employeeService.increaseSalary("Banglore", 10);
+		employeeService.increaseSalary("Banglore", 10); // increasing salary of employees who are in banglore location
+														// by 10%
 
 		Collection<Employee> empList = employeeService.retrieveEmployees();
 
 		assertEquals(2200.0, empList.stream().filter(emp -> emp.getEmpId() == 101).findFirst().get().getSalary(), 0.0);
 	}
 
+	/**
+	 * Mock data
+	 */
 	private Collection<Employee> getEmployeeMockData() {
 		List<Employee> employees = new ArrayList<Employee>();
 		employees.add(new Employee(101, "yash", "Banglore", 2000.0));

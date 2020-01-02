@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,8 @@ import com.sapient.poc.model.Employee;
 @Service
 public class EmployeeService {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeService.class);
+
 	@Autowired
 	EmployeeDao employeeDao;
 
@@ -35,7 +39,8 @@ public class EmployeeService {
 	public void increaseSalary(String place, float percentage) throws EmployeesNotFoundException {
 		Optional<Collection<Employee>> employees = employeeDao.find();
 		if (!employees.isPresent()) {
-			throw new EmployeesNotFoundException("Employees Not Found");
+			LOGGER.error("Couldn't Find Employees");
+			throw new EmployeesNotFoundException("Couldn't Find Employees");
 		}
 
 		List<Employee> updatedEmployeeList = employees.get().stream().filter(emp -> emp.getPlace().equals(place))
@@ -55,7 +60,8 @@ public class EmployeeService {
 	public Collection<Employee> retrieveEmployees() throws EmployeesNotFoundException {
 		Optional<Collection<Employee>> optEmployees = employeeDao.find();
 		if (!optEmployees.isPresent()) {
-			throw new EmployeesNotFoundException("Employees Not Found");
+			LOGGER.error("Couldn't Find Employees");
+			throw new EmployeesNotFoundException("Couldn't Find Employees");
 		}
 		return optEmployees.get();
 	}
@@ -71,7 +77,8 @@ public class EmployeeService {
 
 		Optional<Employee> optEmployee = employeeDao.findById(empId);
 		if (!optEmployee.isPresent()) {
-			throw new EmployeesNotFoundException("Employee Not Found");
+			LOGGER.error("Couldn't Find Employee With Id {}",empId);
+			throw new EmployeesNotFoundException("Couldn't Find Employee");
 		}
 		return optEmployee.get();
 	}
